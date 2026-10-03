@@ -1,0 +1,547 @@
+import Callout from '@/components/Callout';
+import CopyButton from '@/components/CopyButton';
+import StepCard from '@/components/StepCard';
+import CodeBlock from '@/components/CodeBlock';
+import TableOfContents from '@/components/TableOfContents';
+import HowItWorksDiagram from '@/components/HowItWorksDiagram';
+import TroubleshootingAccordion from '@/components/TroubleshootingAccordion';
+import GithubIcon from '@/components/GithubIcon';
+import { Play, CheckCircle, ArrowRight, ShieldCheck, Terminal, Cpu, Database, Zap, BookOpen } from 'lucide-react';
+
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div className="flex flex-col xl:flex-row gap-12 items-start">
+    {/* Main Content Column */}
+    <div className="flex-1 min-w-0 max-w-4xl">
+      
+      {/* Hero Section */}
+      <section className="mb-14 text-left border-b border-slate-200 dark:border-slate-800/80 pb-12">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 mb-6">
+          <Zap className="w-3.5 h-3.5" /> KEPLOY × GO QUICKSTART
+        </div>
+        
+        <h1 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-4">
+          Your First Keploy Test <br className="hidden sm:inline" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600">
+            with Go, Echo & PostgreSQL
+          </span>
+        </h1>
+        
+        <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl font-normal leading-relaxed mb-8">
+          A practical, beginner-friendly walkthrough of recording live API traffic, generating reusable test cases & database dependency mocks, and replaying them deterministically with Keploy.
+        </p>
+
+        {/* Metadata Badges */}
+        <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-medium text-slate-500 dark:text-slate-400 mb-8">
+          <span className="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Go 1.21+</span>
+          <span className="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Echo Framework</span>
+          <span className="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">PostgreSQL</span>
+          <span className="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Keploy CLI v2</span>
+          <span className="px-2.5 py-1 rounded-md bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20">~10 min read</span>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center gap-4">
+          <a
+            href="#overview"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all"
+          >
+            Start Tutorial <ArrowRight className="w-4 h-4" />
+          </a>
+          <a
+            href="https://github.com/yprat/keploy-go-quickstart-guide"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/80 text-slate-800 dark:text-slate-200 font-semibold text-sm border border-slate-200 dark:border-slate-700 transition-all shadow-xs"
+          >
+            <GithubIcon className="w-4 h-4" /> View on GitHub
+          </a>
+        </div>
+      </section>
+
+      {/* Tutorial Overview Card */}
+      <section id="overview" className="my-10 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#131b2e] shadow-sm scroll-mt-24">
+        <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+          <BookOpen className="w-5 h-5 text-orange-500" /> What You'll Build
+        </h2>
+        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+          In this guide, you will spin up a Go URL-shortener API powered by the Echo web framework and PostgreSQL. Using Keploy, you will turn real HTTP API traffic into automated integration tests without writing manual assertion code or manually spinning up test fixtures.
+        </p>
+        
+        <div className="bg-slate-50 dark:bg-slate-900/50 p-4 sm:p-5 rounded-xl border border-slate-200/80 dark:border-slate-800/80">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+            By the end of this tutorial, you will know how to:
+          </h3>
+          <ul className="space-y-2.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+            <li className="flex items-center gap-2.5">
+              <CheckCircle className="w-4.5 h-4.5 text-emerald-500 shrink-0" />
+              <span>Start a Go + PostgreSQL microservice cleanly via Docker Compose</span>
+            </li>
+            <li className="flex items-center gap-2.5">
+              <CheckCircle className="w-4.5 h-4.5 text-emerald-500 shrink-0" />
+              <span>Record real API traffic using Keploy eBPF / container interception</span>
+            </li>
+            <li className="flex items-center gap-2.5">
+              <CheckCircle className="w-4.5 h-4.5 text-emerald-500 shrink-0" />
+              <span>Generate declarative test cases (<code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1 py-0.5 rounded">test-1.yaml</code>) and database dependency mocks (<code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1 py-0.5 rounded">mocks.yaml</code>)</span>
+            </li>
+            <li className="flex items-center gap-2.5">
+              <CheckCircle className="w-4.5 h-4.5 text-emerald-500 shrink-0" />
+              <span>Replay recorded tests deterministically without mutating production state</span>
+            </li>
+            <li className="flex items-center gap-2.5">
+              <CheckCircle className="w-4.5 h-4.5 text-emerald-500 shrink-0" />
+              <span>Understand how Keploy handles dynamic fields (timestamps, IDs) under the hood</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* How It Works Diagram Component */}
+      <HowItWorksDiagram />
+
+      {/* Prerequisites / Before You Start */}
+      <section id="prerequisites" className="my-10 scroll-mt-24">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-4">
+          Before You Start
+        </h2>
+        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+          Make sure your developer machine has the following tools installed:
+        </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#131b2e] text-center">
+            <div className="font-mono font-bold text-sm text-slate-900 dark:text-slate-100">Go 1.21+</div>
+            <div className="text-xs text-slate-500 mt-1">Programming Language</div>
+          </div>
+          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#131b2e] text-center">
+            <div className="font-mono font-bold text-sm text-slate-900 dark:text-slate-100">Docker Desktop</div>
+            <div className="text-xs text-slate-500 mt-1">Container Engine</div>
+          </div>
+          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#131b2e] text-center">
+            <div className="font-mono font-bold text-sm text-slate-900 dark:text-slate-100">Git</div>
+            <div className="text-xs text-slate-500 mt-1">Version Control</div>
+          </div>
+          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#131b2e] text-center">
+            <div className="font-mono font-bold text-sm text-slate-900 dark:text-slate-100">Keploy CLI</div>
+            <div className="text-xs text-slate-500 mt-1">Test Generation</div>
+          </div>
+        </div>
+
+        <Callout type="info" title="Windows Architecture Note">
+          This quickstart uses <strong>Docker Compose</strong> because the application interacts with a PostgreSQL database. On Windows, native OS network interception is limited for raw PostgreSQL binary socket protocols. Running both the application and PostgreSQL inside Docker containers allows Keploy to proxy container-to-container network traffic seamlessly and capture clean database mocks.
+        </Callout>
+      </section>
+
+      {/* STEP 1 */}
+      <StepCard
+        id="step-1"
+        stepNumber={1}
+        title="Get the Sample Application"
+        description="Clone the official Keploy Go sample repository and inspect the Echo URL-shortener codebase."
+        badge="Git & Go"
+      >
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+          First, open your terminal and clone the official <code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">samples-go</code> repository. Navigate to the <code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">echo-sql</code> project directory:
+        </p>
+
+        <CodeBlock
+          title="Terminal (PowerShell / Bash)"
+          language="bash"
+          code={`git clone https://github.com/keploy/samples-go.git
+cd samples-go/echo-sql
+go mod download`}
+        />
+
+        <div className="space-y-3 mt-4 text-xs text-slate-600 dark:text-slate-300">
+          <div className="flex items-start gap-2">
+            <span className="font-mono font-bold text-orange-500 shrink-0">1. git clone:</span>
+            <span>Downloads the repository containing ready-to-use Go sample applications.</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="font-mono font-bold text-orange-500 shrink-0">2. cd samples-go/echo-sql:</span>
+            <span>Enters the directory containing our Echo web server and PostgreSQL database setup.</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="font-mono font-bold text-orange-500 shrink-0">3. go mod download:</span>
+            <span>Fetches all necessary Go module dependencies (<code className="font-mono">echo/v4</code>, <code className="font-mono">lib/pq</code>, <code className="font-mono">zap</code>).</span>
+          </div>
+        </div>
+      </StepCard>
+
+      {/* STEP 2 */}
+      <StepCard
+        id="step-2"
+        stepNumber={2}
+        title="Connect the App to PostgreSQL"
+        description="Configure the PostgreSQL database host inside main.go for Docker Compose service resolution."
+        badge="Config Fix"
+      >
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+          Open <code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">main.go</code> in your code editor. Locate the database connection initialization inside the <code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">main()</code> function. Update the host field so the app points to the Docker Compose service name:
+        </p>
+
+        <CodeBlock
+          title="main.go (Database Connection Setup)"
+          language="go"
+          code={`// BEFORE (Native host setup):
+Database, err = NewConnection(ctx, ConnectionDetails{
+    host: "localhost",
+    port: "5432",
+    user: "postgres",
+    password: "password",
+    dbName: "postgres",
+})
+
+// AFTER (Docker Compose service resolution):
+Database, err = NewConnection(ctx, ConnectionDetails{
+    host: "postgres", // Or "postgresDb" service network alias
+    port: "5432",
+    user: "postgres",
+    password: "password",
+    dbName: "postgres",
+})`}
+        />
+
+        <Callout type="tip" title="Why change localhost to postgres?">
+          When running inside a Docker Compose network, each container operates inside its own isolated network namespace. <strong>localhost</strong> inside the application container refers to the container itself—not your host machine or other containers. Changing the host name to <code className="font-mono text-xs">postgres</code> allows Docker’s built-in DNS service to resolve the IP address of the database container automatically.
+        </Callout>
+      </StepCard>
+
+      {/* STEP 3 */}
+      <StepCard
+        id="step-3"
+        stepNumber={3}
+        title="Start Keploy Recording Mode"
+        description="Launch Keploy record mode to start watching network traffic and capturing database calls."
+        badge="Keploy CLI"
+      >
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+          Run the following Keploy command in your terminal. This command builds the application container, attaches Keploy’s network proxy, and starts recording:
+        </p>
+
+        <CodeBlock
+          title="Terminal"
+          language="bash"
+          code={`keploy record -c "docker compose up" --container-name "echoApp" --build-delay 50`}
+        />
+
+        <div className="overflow-x-auto my-4">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-slate-100">
+                <th className="p-3 font-semibold font-mono">CLI Argument</th>
+                <th className="p-3 font-semibold">Purpose & Explanation</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+              <tr>
+                <td className="p-3 font-mono font-bold text-orange-600 dark:text-orange-400">record</td>
+                <td className="p-3">Instructs Keploy to listen for incoming API requests and outgoing dependency queries.</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-mono font-bold text-orange-600 dark:text-orange-400">-c "docker compose up"</td>
+                <td className="p-3">Specifies the exact shell command Keploy executes to start your application services.</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-mono font-bold text-orange-600 dark:text-orange-400">--container-name "echoApp"</td>
+                <td className="p-3">Identifies the specific container running your application inside Docker Compose.</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-mono font-bold text-orange-600 dark:text-orange-400">--build-delay 50</td>
+                <td className="p-3">Provides a 50-second startup delay for Docker images to build, containers to start, and PostgreSQL health checks to pass before interception begins.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </StepCard>
+
+      {/* STEP 4 */}
+      <StepCard
+        id="step-4"
+        stepNumber={4}
+        title="Make Your First API Request"
+        description="Interact with the URL shortener API as a normal client while Keploy observes traffic."
+        badge="Generate Traffic"
+      >
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+          Open a second terminal window. Send a <code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">POST</code> request to shorten a URL:
+        </p>
+
+        <CodeBlock
+          title="Terminal (API Request)"
+          language="bash"
+          code={`curl --request POST \\
+  --url http://localhost:8082/url \\
+  --header "content-type: application/json" \\
+  --data '{
+    "url": "https://github.com"
+  }'`}
+        />
+
+        <p className="text-sm text-slate-600 dark:text-slate-300 my-3">
+          The Echo web server will respond with a JSON payload containing a timestamp (<code className="text-xs font-mono">ts</code>) and a generated short URL:
+        </p>
+
+        <CodeBlock
+          title="HTTP Response (200 OK)"
+          language="json"
+          code={`{
+  "ts": 1716546241744809281,
+  "url": "http://localhost:8082/Lhr4BWAi"
+}`}
+        />
+
+        <Callout type="success" title="DevRel Key Insight">
+          Notice that <strong>we did not write any test code</strong>. We simply acted like a normal API client sending an HTTP payload. Keploy observed the HTTP request headers, body, status code, and the underlying PostgreSQL insert query, converting this live interaction directly into a permanent test case.
+        </Callout>
+      </StepCard>
+
+      {/* STEP 5 */}
+      <StepCard
+        id="step-5"
+        stepNumber={5}
+        title="Follow the Generated Short URL"
+        description="Execute a GET request using the dynamic short code returned by the previous request."
+        badge="GET Request"
+      >
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+          Copy the generated short code suffix from your terminal response (e.g. <code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">Lhr4BWAi</code>) and make a GET request to retrieve the original URL:
+        </p>
+
+        <CodeBlock
+          title="Terminal"
+          language="bash"
+          code={`curl http://localhost:8082/<SHORT_CODE>`}
+        />
+
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+          <em>Note: Replace <code className="font-mono">&lt;SHORT_CODE&gt;</code> with the actual random string generated during your run. Timestamps and short codes differ naturally on every invocation.</em>
+        </p>
+      </StepCard>
+
+      {/* STEP 6 */}
+      <StepCard
+        id="step-6"
+        stepNumber={6}
+        title="Inspect Captured Keploy Data"
+        description="Examine the auto-generated YAML test cases and PostgreSQL dependency mocks."
+        badge="Test Artifacts"
+      >
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+          Stop the Keploy recording session in your first terminal using <kbd className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">Ctrl + C</kbd>. Notice that a new directory named <code className="text-xs font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">keploy/</code> has been generated in your repository root:
+        </p>
+
+        <CodeBlock
+          title="Directory Structure"
+          language="text"
+          code={`echo-sql/
+└── keploy/
+    └── test-set-0/
+        ├── tests/
+        │   └── test-1.yaml   <-- Captured HTTP API Request & Response
+        └── mocks.yaml        <-- Captured PostgreSQL Network Mocks`}
+        />
+
+        <p className="text-sm text-slate-600 dark:text-slate-300 my-4 leading-relaxed">
+          Let me show you what a captured Keploy test case looks like (<code className="text-xs font-mono">test-1.yaml</code>):
+        </p>
+
+        <CodeBlock
+          title="keploy/test-set-0/tests/test-1.yaml"
+          language="yaml"
+          code={`version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+  req:
+    method: POST
+    url: http://localhost:8082/url
+    header:
+      Content-Type: application/json
+    body: '{"url": "https://github.com"}'
+  resp:
+    status_code: 200
+    body: '{"ts":1716546241744809281,"url":"http://localhost:8082/Lhr4BWAi"}'
+  assertions:
+    noise:
+      body.ts: []
+      header.Date: []`}
+        />
+
+        <Callout type="tip" title="Understanding Noise in Keploy Assertions">
+          Look at the <code className="font-mono text-xs">assertions.noise</code> section. Fields like timestamps (<code className="font-mono text-xs">body.ts</code>) and server dates change on every test run. Keploy automatically flags non-deterministic fields as "noise" so test assertions will pass during future test replays without false mismatch errors!
+        </Callout>
+      </StepCard>
+
+      {/* STEP 7 */}
+      <StepCard
+        id="step-7"
+        stepNumber={7}
+        title="Replay Your Test Suite"
+        description="Execute Keploy test mode to replay recorded requests and assert response consistency."
+        badge="Test Replay"
+      >
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+          Now run Keploy in test mode to replay your recorded test cases:
+        </p>
+
+        <CodeBlock
+          title="Terminal (Test Replay)"
+          language="bash"
+          code={`keploy test -c "docker compose up" --container-name "echoApp" --build-delay 50 --delay 10`}
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+          <div className="p-4 rounded-xl border border-orange-500/30 bg-orange-500/5 dark:bg-orange-500/10">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400 mb-1">
+              Recording Answers:
+            </h4>
+            <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              "What happened when I used the API in real life?"
+            </p>
+          </div>
+          <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-500/10">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+              Testing Answers:
+            </h4>
+            <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              "Does the app still behave identically when that interaction is replayed?"
+            </p>
+          </div>
+        </div>
+
+        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          During replay, Keploy sends the recorded HTTP request back into the application and intercepts database outgoing calls—serving recorded database responses straight from <code className="text-xs font-mono">mocks.yaml</code>.
+        </p>
+      </StepCard>
+
+      {/* WHAT KEPLOY IS DOING BEHIND THE SCENES */}
+      <section id="how-keploy-works" className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100 shadow-md">
+        <h2 className="text-2xl font-bold text-white tracking-tight mb-4 flex items-center gap-2">
+          <Cpu className="w-6 h-6 text-orange-400" /> What Keploy Is Doing Behind The Scenes
+        </h2>
+
+        <div className="space-y-4 text-sm text-slate-300 leading-relaxed">
+          <p>
+            Traditional integration testing requires developers to write verbose unit tests, configure stub servers, and clean up database tables between test runs. Keploy changes this paradigm:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+              <div className="font-bold text-orange-400 text-sm mb-2 flex items-center gap-2">
+                <Terminal className="w-4 h-4" /> 1. eBPF & Network Hooking
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Keploy attaches to operating system socket calls at the kernel layer (using eBPF on Linux / proxy containers on Windows Docker). It transparently intercepts incoming API calls and outgoing TCP packets to PostgreSQL.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+              <div className="font-bold text-emerald-400 text-sm mb-2 flex items-center gap-2">
+                <Database className="w-4 h-4" /> 2. Wire-Protocol Parsing
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Rather than treating database calls as opaque bytes, Keploy parses PostgreSQL binary wire protocols. It captures SQL queries, parameters, and database results, saving them into deterministic YAML mocks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHY THIS IS USEFUL */}
+      <section id="why-it-matters" className="my-12">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-6">
+          Why This Is Useful For Developers
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Without Keploy */}
+          <div className="p-6 rounded-2xl border border-rose-200 dark:border-rose-950/50 bg-rose-50/40 dark:bg-rose-950/10">
+            <h3 className="text-base font-bold text-rose-950 dark:text-rose-300 mb-3 flex items-center gap-2">
+              ❌ Traditional Testing
+            </h3>
+            <ul className="space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
+              <li>• Manually writing hundreds of lines of HTTP assertion boilerplate</li>
+              <li>• Managing database seed scripts and docker table cleanups</li>
+              <li>• Fragile unit mocks that drift from real production behavior</li>
+              <li>• High maintenance overhead when database schemas change</li>
+            </ul>
+          </div>
+
+          {/* With Keploy */}
+          <div className="p-6 rounded-2xl border border-emerald-200 dark:border-emerald-950/50 bg-emerald-50/40 dark:bg-emerald-950/10">
+            <h3 className="text-base font-bold text-emerald-950 dark:text-emerald-300 mb-3 flex items-center gap-2">
+              ✅ Automated Testing with Keploy
+            </h3>
+            <ul className="space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
+              <li>• Automatically convert actual API interactions into reusable tests</li>
+              <li>• Capture actual PostgreSQL network traffic as reusable mocks</li>
+              <li>• Zero-code test setup—just run your normal cURL or Postman requests</li>
+              <li>• Smart noise detection filters dynamic timestamps and UUIDs</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Troubleshooting Component */}
+      <TroubleshootingAccordion />
+
+      {/* Final Success Section */}
+      <section className="my-12 p-8 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent text-slate-900 dark:text-slate-100">
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white mb-4">
+            🎉 CONGRATULATIONS
+          </div>
+          <h2 className="text-3xl font-black tracking-tight mb-3">
+            You Completed Your First Keploy Test!
+          </h2>
+          <p className="text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+            You've successfully set up a Go Echo application, recorded live HTTP transactions with PostgreSQL, inspected captured test artifacts, and replayed tests deterministically.
+          </p>
+
+          <div className="p-4 rounded-xl bg-white dark:bg-[#131b2e] border border-slate-200 dark:border-slate-800 text-xs leading-relaxed space-y-2 mb-6">
+            <strong className="text-slate-900 dark:text-slate-100 font-bold block text-sm">
+              The Big Takeaway:
+            </strong>
+            Keploy lets you turn real API interactions into zero-maintenance integration test suites without writing manual test boilerplate or seeding live databases.
+          </div>
+        </div>
+      </section>
+
+      {/* Next Steps */}
+      <section id="next-steps" className="my-12 scroll-mt-24">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-4">
+          Next Steps & Official Resources
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a
+            href="https://keploy.io/docs/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#131b2e] hover:border-orange-500 transition-colors group"
+          >
+            <div className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-orange-500 transition-colors">
+              Official Keploy Documentation →
+            </div>
+            <div className="text-xs text-slate-500 mt-1">Explore advanced eBPF configuration & CI/CD pipeline integration.</div>
+          </a>
+          <a
+            href="https://github.com/keploy/samples-go"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#131b2e] hover:border-orange-500 transition-colors group"
+          >
+            <div className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-orange-500 transition-colors">
+              Keploy Go Samples Repository →
+            </div>
+            <div className="text-xs text-slate-500 mt-1">Browse quickstarts for Gin, Fiber, gRPC, and Chi frameworks.</div>
+          </a>
+        </div>
+      </section>
+
+    </div>
+
+    {/* Table of Contents Sticky Sidebar */}
+    <TableOfContents />
+  </div>
+</div>
