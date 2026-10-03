@@ -67,7 +67,7 @@ Follow these steps to run the documentation website locally:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yprat/keploy-go-quickstart-guide.git
+git clone https://github.com/Pratima-43/keploy-go-quickstart-guide.git
 cd keploy-go-quickstart-guide
 ```
 

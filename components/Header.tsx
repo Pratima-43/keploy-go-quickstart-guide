@@ -8,7 +8,7 @@ interface HeaderProps {
   githubUrl?: string;
 }
 
-export default function Header({ githubUrl = 'https://github.com/yprat/keploy-go-quickstart-guide' }: HeaderProps) {
+export default function Header({ githubUrl = 'https://github.com/Pratima-43/keploy-go-quickstart-guide' }: HeaderProps) {
   const [darkMode, setDarkMode] = useState(false);
   const [mounted, setMounted] = useState(false);
 
